@@ -15,13 +15,10 @@ No gesture = normal drifting behavior. The tension in the system is visible—ca
 ## Screenshots
 
 ![Normal mode](screenshots/normal.png)
-*Particles in normal drift mode*
 
 ![Chaotic spin](screenshots/chaotic.png)
-*Fist gesture - chaotic spin mode*
 
 ![Cube formation](screenshots/cube.png)
-*Thumbs up gesture - 3D cube formation*
 
 ## Controls
 
@@ -44,14 +41,11 @@ make
 make RunRelease
 ```
 
-## Setup notes
+## Setup
 
-The gesture detection works best with:
-- Decent lighting (hand needs contrast with background)
-- Hand about 1-2 feet from camera
-- If background is messy, press `b` with your hand out of frame, then toggle "Use Background Sub" in the GUI
+Works best with decent lighting and your hand 1-2 feet from camera. If background is cluttered, press `b` with your hand out of frame, then toggle "Use Background Sub" in the GUI.
 
-Adjust "Gesture Threshold" slider if your hand isn't being detected. You'll see the processed image in the top-left when the webcam view is on.
+If it's not detecting your hand, adjust the "Gesture Threshold" slider. The processed image shows up in the top-left when webcam view is on.
 
 ## How the CV works
 
