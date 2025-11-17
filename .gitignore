@@ -1,0 +1,39 @@
+# openFrameworks
+obj/
+bin/*.app/
+bin/*.exe
+bin/*.dll
+*.o
+*.d
+
+# Build files
+*.a
+*.lib
+Makefile
+*.make
+*.workspace
+*.xcodeproj
+*.sln
+*.vcxproj*
+config.make
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Screenshots (uncomment to exclude)
+# screenshot_*.png
+
+# Keep these
+!addons.make
+!README.md
+!src/
+!bin/data/
+
