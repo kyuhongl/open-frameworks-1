@@ -1,6 +1,6 @@
 # HandParticles
 
-Particle system that responds to hand gestures. Uses your webcam to detect fist, open hand, and thumbs up, and makes 20k particles do different things.
+Particle system that responds to hand gestures. Uses your webcam to detect fist, open hand, and thumbs up, and makes 20k particles do different things. Particles show tension through color—more movement adds red to the navy ink.
 
 ## What it does
 
@@ -10,7 +10,7 @@ Three gestures control the particles:
 - **Open hand** → everything calms down and slows
 - **Thumbs up** → particles form a rotating 3D cube
 
-No gesture = normal drifting behavior.
+No gesture = normal drifting behavior. The tension in the system is visible—calm particles stay dark navy, while high-tension (fast-moving) particles shift toward red.
 
 ## Screenshots
 
@@ -65,9 +65,9 @@ Pretty straightforward pipeline:
 
 The GUI lets you tweak blur amount, threshold, min/max hand size, and all the particle behavior params.
 
-## Why navy ink on eggshell
+## Visual style
 
-Wanted it to look like ink on paper instead of the usual neon particles on black. Particles get a red tint when they move faster.
+Navy ink on eggshell white—wanted it to feel like ink on paper instead of the usual neon-on-black look. The red hue represents tension in the system. Low-tension particles drift slowly and stay dark navy. High-tension (rapid movement) particles bleed red, showing where the energy is.
 
 ## License
 
