@@ -1,87 +1,74 @@
 # HandParticles
 
-Real-time particle system controlled by hand gestures via webcam. 20,000 particles respond to three hand gestures with distinct visual behaviors.
+Particle system that responds to hand gestures. Uses your webcam to detect fist, open hand, and thumbs up, and makes 20k particles do different things.
 
-## Features
+## What it does
 
-- **Gesture Detection**: Computer vision pipeline detects fist, open hand, and thumbs up
-- **Particle Modes**: Each gesture triggers different particle behavior
-- **Visual Feedback**: Navy ink particles with red velocity indication on eggshell background
+Three gestures control the particles:
 
-## Gestures
+- **Fist** → particles spin around the center and get chaotic
+- **Open hand** → everything calms down and slows
+- **Thumbs up** → particles form a rotating 3D cube
 
-| Gesture | Effect |
-|---------|--------|
-| **Fist** | Chaotic spin - particles rotate and jitter around screen center |
-| **Open Hand** | Calm - particles slow down with minimal jitter |
-| **Thumbs Up** | Form Cube - particles organize into rotating 3D cube formation |
-| **None** | Normal - standard drift behavior |
+No gesture = normal drifting behavior.
+
+## Screenshots
+
+![Normal mode](screenshots/normal.png)
+*Particles in normal drift mode*
+
+![Chaotic spin](screenshots/chaotic.png)
+*Fist gesture - chaotic spin mode*
+
+![Cube formation](screenshots/cube.png)
+*Thumbs up gesture - 3D cube formation*
 
 ## Controls
 
-| Key | Action |
-|-----|--------|
-| `TAB` | Toggle GUI visibility |
-| `s` | Save screenshot |
-| `g` | Toggle gesture detection (auto/manual) |
-| `b` | Capture background (remove hand first) |
-| `c` | Toggle webcam view |
-| `d` | Toggle debug info |
-| `1-4` | Manual gesture override |
+```
+TAB     Toggle GUI on/off
+s       Save screenshot
+g       Switch between gesture and keyboard control
+b       Capture background (move hand away first)
+c       Show/hide webcam feed
+d       Show/hide debug info
+1-4     Manually trigger gestures
+```
 
-## Setup
+## Building
 
-### Requirements
-- openFrameworks 0.12.1+
-- ofxOpenCV
-- ofxGui
-- Webcam
+Needs openFrameworks 0.12.1+ with ofxOpenCV and ofxGui.
 
-### Build
 ```bash
 make
 make RunRelease
 ```
 
-## Configuration
+## Setup notes
 
-### CV Parameters (adjust via GUI)
-- **Gesture Threshold** (30-255): Hand detection sensitivity
-- **Blur Amount** (1-15): Noise reduction
-- **Min/Max Contour Area**: Hand size bounds
-- **Background Subtraction**: Toggle for cluttered scenes
+The gesture detection works best with:
+- Decent lighting (hand needs contrast with background)
+- Hand about 1-2 feet from camera
+- If background is messy, press `b` with your hand out of frame, then toggle "Use Background Sub" in the GUI
 
-### Particle Parameters
-- **Spin Strength**: Vortex force intensity
-- **Chaotic Jitter**: Noise amplitude
-- **Formation Strength**: Cube attraction force
-- **Rotation Speed**: Cube rotation rate
+Adjust "Gesture Threshold" slider if your hand isn't being detected. You'll see the processed image in the top-left when the webcam view is on.
 
-## Tips
+## How the CV works
 
-- **Lighting**: Ensure good contrast between hand and background
-- **Distance**: Keep hand 1-2 feet from camera
-- **Background Subtraction**: Press `b` (hand out of frame), then enable toggle
-- **Calibration**: Adjust threshold slider until hand appears white in processed view
+Pretty straightforward pipeline:
+1. Blur the image to kill noise
+2. Threshold to get hand silhouette
+3. Find contours, pick the biggest one
+4. Calculate convex hull and count the gaps (convexity defects)
+5. Gaps = fingers spread, no gaps = fist, one gap + tall shape = thumbs up
+6. Average the last 5 frames to avoid flickering
 
-## Technical Details
+The GUI lets you tweak blur amount, threshold, min/max hand size, and all the particle behavior params.
 
-### Computer Vision Pipeline
-1. Gaussian blur for noise reduction
-2. Morphological operations (erode/dilate) to clean contours
-3. Optional background subtraction
-4. Convex hull analysis for finger detection
-5. Temporal smoothing (5-frame voting) to prevent flicker
+## Why navy ink on eggshell
 
-### Gesture Classification
-- **Fist**: High solidity (≥0.75), 0-1 convexity defects
-- **Open Hand**: Low solidity (<0.7), 2+ convexity defects
-- **Thumbs Up**: 1 defect, tall aspect ratio (>1.3)
-
-## Screenshots
-
-*Add screenshots here after capturing with `s` key*
+Wanted it to look like ink on paper instead of the usual neon particles on black. Particles get a red tint when they move faster.
 
 ## License
 
-MIT
+MIT - do whatever

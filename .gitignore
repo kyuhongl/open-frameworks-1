@@ -28,12 +28,13 @@ config.make
 .DS_Store
 Thumbs.db
 
-# Screenshots (uncomment to exclude)
-# screenshot_*.png
+# Screenshots saved in project root (auto-generated)
+screenshot_*.png
 
 # Keep these
 !addons.make
 !README.md
 !src/
 !bin/data/
+!screenshots/
 
